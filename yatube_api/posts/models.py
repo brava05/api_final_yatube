@@ -54,16 +54,16 @@ class Follow(models.Model):
         related_name='follower',
         help_text='Кто подписан'
     )
-    author = models.ForeignKey(
+    following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='following',
+        related_name='followings',
         verbose_name="Автор",
         help_text='На кого подписан'
     )
 
     def __str__(self) -> str:
-        return f'Пользователь {self.user} подписан на {self.author}'
+        return f'Пользователь {self.user} подписан на {self.following}'
 
     class Meta:
         verbose_name = "Подписка"
@@ -71,6 +71,6 @@ class Follow(models.Model):
         constraints = [
             models.UniqueConstraint(
                 name='unique_follows',
-                fields=['user', 'author'],
+                fields=['user', 'following'],
             ),
         ]

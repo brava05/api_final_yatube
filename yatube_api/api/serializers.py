@@ -1,13 +1,17 @@
-# TODO
+# TOD
 # При указании параметров limit и offset выдача должна работать с пагинацией.
 # GET Возвращает все подписки пользователя,
 # сделавшего запрос. Анонимные запросы запрещены.
+# Проверьте, что `/api/v1/groups/{group.id}/`
+# при запросе без токена возвращаете статус 200
 
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
-
+from django.contrib.auth import get_user_model
 
 from posts.models import Comment, Post, Group, Follow
+
+User = get_user_model()
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -40,7 +44,8 @@ class FollowSerializer(serializers.ModelSerializer):
     user = SlugRelatedField(slug_field='username', read_only=True)
     following = SlugRelatedField(
         slug_field='username',
-        source='author', read_only=True
+        read_only=False,
+        queryset=User.objects.all()
     )
 
     class Meta:

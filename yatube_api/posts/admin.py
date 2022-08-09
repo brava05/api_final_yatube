@@ -21,7 +21,7 @@ class GroupAdmin(admin.ModelAdmin):
 
 
 class FollowAdmin(admin.ModelAdmin):
-    list_display = ('user', 'author')
+    list_display = ('user', 'following')
     empty_value_display = '-пусто-'
 
 
