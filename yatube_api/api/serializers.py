@@ -1,10 +1,3 @@
-# TOD
-# При указании параметров limit и offset выдача должна работать с пагинацией.
-# GET Возвращает все подписки пользователя,
-# сделавшего запрос. Анонимные запросы запрещены.
-# Проверьте, что `/api/v1/groups/{group.id}/`
-# при запросе без токена возвращаете статус 200
-
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 from django.contrib.auth import get_user_model
@@ -25,7 +18,8 @@ class PostSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
-        read_only=True, slug_field='username'
+        read_only=True,
+        slug_field='username'
     )
 
     class Meta:
@@ -47,6 +41,21 @@ class FollowSerializer(serializers.ModelSerializer):
         read_only=False,
         queryset=User.objects.all()
     )
+
+    def validate(self, data):
+        user = self.context['request'].user
+        following = data.get("following")
+        if Follow.objects.filter(
+            user=user,
+            following=following
+        ).exists():
+            raise serializers.ValidationError('Такая подписка уже есть')
+
+        if user == following:
+            raise serializers.ValidationError(
+                'Нельзя подписаться на самого себя')
+
+        return data
 
     class Meta:
         fields = ('user', 'following')
