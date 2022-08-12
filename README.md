@@ -23,7 +23,9 @@ python -m venv venv source venv/Scripts/activate
 $ pip install -r requirements/local.txt
 
 Создаем миграции:
-$ python manage.py makemigrations $ python manage.py migrate
+
+$ python manage.py makemigrations
+$ python manage.py migrate
 
 И теперь можно запускать сервер:
 $ python manage.py runserver
