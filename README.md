@@ -6,36 +6,36 @@
 Написано на REST Framework и python 3.
 
 Как использовать. Сначала надо установить python. Потом устанавливаем django.
-
+```PYTHON
 $ pip install django
-
+```
 Потом клонируем репозиторий себе на компьютер:
-
+```PYTHON
 $ git clone git@github.com/USERNAME/{{ project_name }}.git
-
+```
 Переходим в папку проекта $ cd {{ project_name }}
 
 Создаем и активируем виртуальное пространство
-
+```PYTHON
 python -m venv venv source venv/Scripts/activate
-
+```
 Устанавливаем все необходимые пакеты:
+```PYTHON
 $ pip install -r requirements/local.txt
-
+```
 Создаем миграции:
-
+```PYTHON
 $ python manage.py makemigrations
 $ python manage.py migrate
-
+```
 И теперь можно запускать сервер:
+```PYTHON
 $ python manage.py runserver
-
+```
 Для чтения документации по API можно перейти по ссылке http://127.0.0.1:8000/redoc/
 
 Для доступа в админку надо перейти на http://127.0.0.1:8000/admin
-<<<<<<< HEAD
-Автор: Бражинский Валерий.
-=======
 
 Автор: Бражинский Валерий.
->>>>>>> b290df152ff22d60a251d42b5da218d540a35b3e
+
+
